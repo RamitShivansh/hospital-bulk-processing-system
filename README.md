@@ -4,9 +4,7 @@ A Flask application that provides bulk processing capabilities for hospital reco
 
 ## Demo
 
-<video src="docs/demo.mov" controls>
-  Your browser does not support the video tag. You can download the video here: docs/demo.mov
-</video>
+[Watch the demo video on YouTube](https://youtu.be/DiKcdwftWLI)
 
 
 ## Features
