@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Environment variables
+.env
+env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation
+*.md
+LICENSE
+Senior_Python_Developer_Assignment.pdf

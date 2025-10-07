@@ -1,0 +1,48 @@
+"""Application-wide constants for statuses, dictionary keys, and extension names."""
+
+STATUS_PENDING = "pending"
+STATUS_PROCESSING = "processing"
+STATUS_CREATED = "created"
+STATUS_ACTIVATED = "activated"
+STATUS_CREATED_AND_ACTIVATED = "created_and_activated"
+STATUS_FAILED = "failed"
+STATUS_COMPLETE = "complete"
+
+KEY_STATUS = "status"
+KEY_START_TIME = "start_time"
+KEY_END_TIME = "end_time"
+KEY_TOTAL_HOSPITALS = "total_hospitals"
+KEY_PROCESSED_COUNT = "processed_hospitals"
+KEY_FAILED_COUNT = "failed_hospitals"
+KEY_HOSPITALS = "hospitals"
+KEY_BATCH_ACTIVATED = "batch_activated"
+KEY_PROCESSING_TIME_SECONDS = "processing_time_seconds"
+
+HOSPITAL_KEY_ROW = "row"
+HOSPITAL_KEY_NAME = "name"
+HOSPITAL_KEY_ADDRESS = "address"
+HOSPITAL_KEY_PHONE = "phone"
+HOSPITAL_KEY_STATUS = "status"
+HOSPITAL_KEY_HOSPITAL_ID = "hospital_id"
+HOSPITAL_KEY_ERROR = "error"
+
+EXT_BATCH_PROCESSOR = "batch_processor"
+EXT_BATCH_REPOSITORY = "batch_repository"
+EXT_CSV_VALIDATOR = "csv_validator"
+EXT_BATCH_SERVICE = "batch_service"
+
+# Validation error messages
+ERROR_NAME_REQUIRED = "name is required and cannot be empty"
+ERROR_ADDRESS_REQUIRED = "address is required and cannot be empty"
+ERROR_PHONE_INVALID = "phone must be a 10-digit number"
+ERROR_ROW_FEW_COLUMNS = "Row has fewer than required columns"
+ERROR_MISSING_REQUIRED_COLUMNS = "Missing required columns: name/address"
+ERROR_CSV_MIN_COLUMNS = "CSV must have at least 2 columns: name and address"
+ERROR_EXPECTED_COLUMN_TEMPLATE = "Expected column {index} to be {expected}, got {actual}"
+ERROR_CSV_EMPTY_HEADER = "CSV is empty; missing header row"
+ERROR_CSV_INVALID_FORMAT_TEMPLATE = "Invalid CSV format: {error}"
+ERROR_CSV_INVALID_GENERIC = "Invalid CSV format"
+ERROR_MAX_HOSPITALS_EXCEEDED_TEMPLATE = "CSV contains {count} hospitals, maximum allowed is {max_allowed}"
+ERROR_NO_HOSPITAL_ROWS = "CSV contains 0 hospitals; at least 1 required"
+
+

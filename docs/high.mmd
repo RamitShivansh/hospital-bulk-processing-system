@@ -1,0 +1,12 @@
+flowchart LR
+U["User / Client"]-->F["Blueprint /api/v1"];
+F-->Val["HospitalCsvValidator"];
+F-->Svc["BatchService"];
+Svc-->Repo["HospitalBatchRepository"];
+Svc-->Proc["BatchProcessor"];
+Proc-->DirAPI["Hospital Directory API"];
+Proc-->Repo;
+F-->SwUI["Swagger UI /docs"];
+F-->OpenApi["OpenAPI JSON /api/v1/swagger.json"];
+F-->|GET /hospitals/batch/:id/status| Repo;
+F-->|POST /hospitals/batch/:id/resume| Svc;

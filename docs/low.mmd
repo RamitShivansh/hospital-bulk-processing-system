@@ -1,0 +1,46 @@
+sequenceDiagram
+participant C as Client
+participant R as /hospitals/bulk
+participant S as BatchService
+participant V as HospitalCsvValidator
+participant Repo as HospitalBatchRepository
+participant P as BatchProcessor (thread)
+participant API as HospitalApiClient
+participant Ext as Hospital Directory API
+
+C->>R: POST multipart/form-data (file)
+R->>S: bulk_create_hospitals(csv_text, max)
+S->>V: validate_and_parse(csv_text)
+V-->>S: {valid, errors[], hospitals}
+alt invalid CSV
+  S-->>R: 400 { error, errors[] }
+else valid CSV
+  S->>Repo: save(initial batch)
+  S->>P: start_batch(batch_id, app) (async)
+  R-->>C: 202 { batch_id, total_hospitals, ... }
+  Note over C,R: Client can now poll status endpoint
+
+  P->>Repo: find_by_batch_id(batch_id)
+  loop for each hospital row
+    P->>Repo: update_hospital_status(processing)
+    P->>API: create_hospital(hospital, batch_id)
+    API->>Ext: POST /hospitals/
+    Ext-->>API: 200 { id }
+    API-->>P: { id }
+    P->>Repo: update_hospital_status(created) + store hospital_id
+  end
+
+  alt all created
+    P->>API: activate_batch(batch_id)
+    API->>Ext: PATCH /hospitals/batch/{id}/activate
+    Ext-->>API: 200 { activated_count }
+    API-->>P: ok
+    P->>Repo: update_hospital_status(... activated)
+  else some failed
+    P-->>P: skip activation
+  end
+
+  P->>Repo: update_batch_processing_params(processed, failed, end_time, batch_activated)
+end
+
+Note over C: GET /hospitals/batch/{id}/status returns batch status
